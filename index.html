@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f3ead8">
+  <title>Dere skal til Gdańsk!</title>
+  <link rel="icon" href="img/fly.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 1. Intro -->
+  <header class="intro">
+    <div class="intro-billett">
+      <p class="kode">OMBORDSTIGNINGSKORT · 12 MAR 2027</p>
+      <p class="intro-for" id="intro-for"></p>
+      <h1>Pakk kofferten –<br><em>dere skal til Gdańsk!</em></h1>
+      <div class="intro-rute">
+        <span class="iata">TOS</span>
+        <img src="img/fly.svg" alt="" class="intro-fly">
+        <span class="iata">GDN</span>
+      </div>
+      <p class="intro-datoer kode">12.–15. MARS 2027</p>
+      <p class="intro-fra" id="intro-fra"></p>
+    </div>
+    <a class="scroll-hint" href="#utreise">
+      <span>Scroll ned</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <main>
+    <!-- 2. Utreise -->
+    <section id="utreise" class="flyreise" data-reise="utreise">
+      <div class="sticky">
+        <div class="kart" aria-label="Kart over flyruten fra Tromsø til Gdańsk" role="img"></div>
+        <div class="fly-topp">
+          <p class="kode etikett">UTREISE</p>
+          <p class="fly-dato"></p>
+        </div>
+        <div class="fly-kort">
+          <div class="fly-rad">
+            <div><span class="iata fra-kode"></span><span class="tid fra-tid"></span></div>
+            <div class="fly-klokke"><span class="klokke kode">--:--</span><span class="km kode">0 km</span></div>
+            <div class="høyre"><span class="iata til-kode"></span><span class="tid til-tid"></span></div>
+          </div>
+          <div class="fremdrift"><div class="fremdrift-fyll"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="innhold" id="reiseinfo-ut"></section>
+    <section class="innhold" id="ankomst"></section>
+    <section class="innhold" id="hotell"></section>
+    <section class="innhold" id="dager"></section>
+    <section class="innhold" id="mat"></section>
+    <section class="innhold" id="strikk"></section>
+    <section class="innhold" id="skjer"></section>
+
+    <!-- 11. Hjemreise -->
+    <section id="hjemreise" class="flyreise natt" data-reise="hjemreise">
+      <div class="sticky">
+        <div class="kart" aria-label="Kart over flyruten fra Gdańsk hjem til Tromsø" role="img"></div>
+        <div class="stjerner" aria-hidden="true"></div>
+        <div class="fly-topp">
+          <p class="kode etikett">HJEMREISE</p>
+          <p class="fly-dato"></p>
+        </div>
+        <div class="fly-kort">
+          <div class="fly-rad">
+            <div><span class="iata fra-kode"></span><span class="tid fra-tid"></span></div>
+            <div class="fly-klokke"><span class="klokke kode">--:--</span><span class="km kode">0 km</span></div>
+            <div class="høyre"><span class="iata til-kode"></span><span class="tid til-tid"></span></div>
+          </div>
+          <div class="fremdrift"><div class="fremdrift-fyll"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="innhold" id="reiseinfo-hjem"></section>
+  </main>
+
+  <!-- 12. Avslutning -->
+  <footer class="slutt">
+    <img src="img/stempel.svg" alt="Stempel: God tur, TOS – GDN 2027" class="stempel">
+    <h2 id="slutt-tittel"></h2>
+    <p id="slutt-klem"></p>
+  </footer>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
+  <script src="data/innhold.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

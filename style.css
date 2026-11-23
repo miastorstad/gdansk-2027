@@ -1,0 +1,249 @@
+/* Retro reiseplakat / flybillett, 1960-tallet. Mobil først. */
+:root {
+  --papir: #f3ead8;
+  --papir-mørk: #e8dcc2;
+  --blå: #1d2f4f;
+  --blå-lys: #3a5580;
+  --rust: #b5452f;
+  --rav: #e9a23b;
+  --blekk: #2a2622;
+  --dempet: #6b6152;
+  --natt: #0f1a2e;
+  --serif: "Playfair Display", Georgia, serif;
+  --tekst: "Lora", Georgia, serif;
+  --mono: "Courier Prime", "Courier New", monospace;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background-color: var(--papir);
+  /* svak papirtekstur, ingen bilder */
+  background-image:
+    radial-gradient(rgba(120, 90, 40, .05) 1px, transparent 1px),
+    radial-gradient(rgba(120, 90, 40, .04) 1px, transparent 1px);
+  background-size: 7px 7px, 11px 11px;
+  background-position: 0 0, 3px 5px;
+  color: var(--blekk);
+  font-family: var(--tekst);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+img { max-width: 100%; }
+a { color: var(--blå); }
+h1, h2, h3 { font-family: var(--serif); color: var(--blå); line-height: 1.15; margin: 0 0 .5em; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.25rem; }
+.kode { font-family: var(--mono); letter-spacing: .08em; }
+
+/* ---------- 1. Intro ---------- */
+.intro {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px 24px;
+  text-align: center;
+}
+.intro-billett {
+  width: 100%;
+  max-width: 420px;
+  background: #fbf5e8;
+  border: 2px solid var(--blå);
+  border-radius: var(--radius);
+  padding: 26px 20px 22px;
+  position: relative;
+  box-shadow: 0 2px 0 var(--blå), 0 12px 30px rgba(29, 47, 79, .15);
+}
+.intro-billett::before, .intro-billett::after {
+  /* perforerings-hakk */
+  content: "";
+  position: absolute;
+  top: 58%;
+  width: 22px; height: 22px;
+  background: var(--papir);
+  border: 2px solid var(--blå);
+  border-radius: 50%;
+}
+.intro-billett::before { left: -13px; clip-path: inset(0 0 0 50%); }
+.intro-billett::after { right: -13px; clip-path: inset(0 50% 0 0); }
+.intro-billett > .kode:first-child { font-size: .72rem; color: var(--rust); margin: 0 0 14px; }
+.intro-for { font-family: var(--mono); font-size: .95rem; margin: 0 0 10px; color: var(--dempet); }
+.intro h1 { font-size: 2.35rem; font-weight: 900; }
+.intro h1 em { color: var(--rust); font-style: italic; }
+.intro-rute {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin: 18px 0 6px;
+  border-top: 2px dashed var(--blå-lys);
+  padding-top: 18px;
+}
+.iata { font-family: var(--mono); font-weight: 700; font-size: 2rem; color: var(--blå); letter-spacing: .05em; }
+.intro-fly { width: 46px; transform: rotate(90deg); }
+.intro-datoer { margin: 0 0 14px; color: var(--blå); font-weight: 700; }
+.intro-fra { font-size: .92rem; color: var(--dempet); font-style: italic; margin: 0; }
+
+.scroll-hint {
+  margin-top: 26px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: .85rem; text-decoration: none; color: var(--rust);
+  padding: 10px 18px;
+}
+.scroll-hint svg { width: 28px; height: 28px; animation: hopp 1.8s ease-in-out infinite; }
+@keyframes hopp { 50% { transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-hint svg { animation: none; } }
+
+/* ---------- Flyreise (sticky kart) ---------- */
+.flyreise { position: relative; height: 200vh; }
+.flyreise.redusert { height: 100vh; height: 100svh; }
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #dfe7ea;
+}
+.kart { position: absolute; inset: 0; }
+.fly-topp {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 14px 16px 30px;
+  background: linear-gradient(var(--papir) 55%, rgba(243, 234, 216, 0));
+  pointer-events: none;
+}
+.fly-topp p { margin: 0; }
+.etikett { font-size: .75rem; color: var(--rust); font-weight: 700; }
+.fly-dato { font-family: var(--serif); font-size: 1.35rem; font-weight: 700; color: var(--blå); }
+
+.fly-kort {
+  position: absolute; left: 16px; right: 16px;
+  bottom: calc(40px + env(safe-area-inset-bottom));
+  background: #fbf5e8;
+  border: 2px solid var(--blå);
+  border-radius: var(--radius);
+  padding: 12px 14px 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .18);
+  max-width: 440px; margin: 0 auto;
+}
+.fly-rad { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.fly-rad > div { display: flex; flex-direction: column; }
+.fly-rad .høyre { text-align: right; }
+.fly-rad .iata { font-size: 1.6rem; line-height: 1; }
+.tid { font-family: var(--mono); font-size: .9rem; color: var(--dempet); }
+.fly-klokke { align-items: center; text-align: center; }
+.klokke { font-size: 1.35rem; font-weight: 700; color: var(--rust); }
+.km { font-size: .74rem; color: var(--dempet); white-space: nowrap; }
+.by-etikett {
+  font-family: var(--mono); font-weight: 700; font-size: .8rem; letter-spacing: .06em;
+  background: var(--blå); color: var(--papir); padding: 2px 7px; border-radius: 4px;
+  transform: translate(16px, 0); white-space: nowrap;
+}
+.natt .by-etikett { background: var(--rav); color: var(--natt); }
+.fremdrift { height: 4px; background: var(--papir-mørk); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+.fremdrift-fyll { height: 100%; width: 0; background: var(--rust); }
+
+.fly-markør { width: 44px; height: 44px; filter: drop-shadow(0 3px 3px rgba(0,0,0,.35)); }
+.fly-markør img { width: 100%; height: 100%; display: block; }
+
+.maplibregl-ctrl-attrib { font-size: 10px; }
+
+/* Nattmodus for hjemreisen (avgang 05:30) */
+.natt .sticky { background: var(--natt); }
+.natt .fly-topp { background: linear-gradient(var(--natt) 55%, rgba(15, 26, 46, 0)); }
+.natt .fly-dato { color: var(--papir); }
+.natt .etikett { color: var(--rav); }
+.natt .fly-kort { background: #18253d; border-color: var(--rav); color: var(--papir); }
+.natt .fly-kort .iata { color: var(--papir); }
+.natt .tid, .natt .km { color: #b9b2a3; }
+.natt .klokke { color: var(--rav); }
+.natt .fremdrift { background: #2b3a57; }
+.natt .fremdrift-fyll { background: var(--rav); }
+.natt .maplibregl-ctrl-attrib { background: rgba(15, 26, 46, .7); color: #ccc; }
+.natt .maplibregl-ctrl-attrib a { color: #ddd; }
+.stjerner {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 22%, #fff8, transparent),
+    radial-gradient(1px 1px at 78% 15%, #fff9, transparent),
+    radial-gradient(1.5px 1.5px at 60% 40%, #fff6, transparent),
+    radial-gradient(1px 1px at 30% 65%, #fff7, transparent),
+    radial-gradient(1px 1px at 88% 58%, #fff6, transparent),
+    radial-gradient(1.5px 1.5px at 45% 12%, #fff8, transparent);
+  mix-blend-mode: screen;
+}
+
+/* ---------- Innholdsseksjoner ---------- */
+.innhold { padding: 44px 16px 8px; max-width: 640px; margin: 0 auto; }
+.innhold:empty { display: none; }
+.seksjon-etikett { font-family: var(--mono); font-size: .78rem; letter-spacing: .12em; color: var(--rust); font-weight: 700; margin: 0 0 6px; text-transform: uppercase; }
+.ingress { font-size: 1.05rem; }
+
+.kort {
+  background: #fbf5e8;
+  border: 1.5px solid rgba(29, 47, 79, .35);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.kort h3 { margin-bottom: .3em; }
+.kort p { margin: 0 0 .6em; }
+.kort p:last-child { margin-bottom: 0; }
+.kort.fremhevet { border: 2px solid var(--rust); box-shadow: 4px 4px 0 var(--rust); }
+
+.meta { font-family: var(--mono); font-size: .85rem; color: var(--dempet); margin: 0 0 .4em; }
+.merkelapp {
+  display: inline-block; font-family: var(--mono); font-size: .72rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  background: var(--rav); color: var(--blå); padding: 2px 8px; border-radius: 4px; margin: 0 6px 6px 0;
+}
+.merkelapp.rust { background: var(--rust); color: #fff; }
+
+.faktaliste { list-style: none; padding: 0; margin: 0; }
+.faktaliste li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1.5px dashed rgba(29, 47, 79, .25); }
+.faktaliste li:last-child { border-bottom: 0; }
+.faktaliste .ikon { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--blå); color: var(--papir); display: grid; place-items: center; font-size: 1.05rem; }
+.faktaliste strong { display: block; font-family: var(--serif); color: var(--blå); }
+
+.knapp {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 48px; padding: 10px 18px;
+  background: var(--blå); color: var(--papir);
+  border-radius: 999px; text-decoration: none;
+  font-family: var(--mono); font-weight: 700; font-size: .92rem;
+  margin-top: 4px;
+}
+.knapp.liten { min-height: 44px; padding: 8px 14px; font-size: .85rem; background: transparent; color: var(--blå); border: 2px solid var(--blå); }
+.knapp:active { transform: translateY(1px); }
+
+.bildeknapper { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 2px; }
+.bildeknapper .knapp { margin-top: 0; }
+.hotellkart { height: 230px; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--blå); margin: 14px 0; }
+.hotell-pin { width: 34px; height: 44px; }
+
+.dag { position: relative; padding-left: 26px; margin-bottom: 24px; }
+.dag::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: -18px; width: 2px; background: repeating-linear-gradient(var(--blå-lys) 0 6px, transparent 6px 11px); }
+.dag:last-child::before { display: none; }
+.dag::after { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--rav); border: 2px solid var(--blå); }
+.dag ul { padding-left: 1.1em; margin: .3em 0 0; }
+.dag li { margin-bottom: .45em; }
+
+.kilde { font-size: .78rem; color: var(--dempet); }
+.kilde a { color: var(--dempet); }
+
+/* ---------- 12. Avslutning ---------- */
+.slutt { text-align: center; padding: 56px 16px calc(64px + env(safe-area-inset-bottom)); }
+.stempel { width: 170px; margin-bottom: 12px; }
+.slutt h2 { font-size: 2.2rem; }
+.slutt h2 em { color: var(--rust); }
+.slutt p { font-style: italic; color: var(--dempet); max-width: 340px; margin: 0 auto; }
+
+@media (min-width: 700px) {
+  .intro h1 { font-size: 3rem; }
+}
