@@ -76,7 +76,9 @@ window.INNHOLD = {
         "Sjekk inn på hotellet og pust ut.",
         "Kveldstur langs Motława og Andersenbrygga (Długie Pobrzeże) – fint opplyst om kvelden.",
         "Middag nær hotellet, for eksempel Tygle (se mat-tipsene)."
-      ]
+      ],
+      // «stopp» blir en gårute i Google Maps fra hotellet (rekkefølgen her = rekkefølgen på ruta)
+      stopp: ["Długie Pobrzeże, Gdańsk", "Tygle Chmielna 10 Gdańsk"]
     },
     {
       dato: "Lørdag 13. mars",
@@ -88,15 +90,29 @@ window.INNHOLD = {
         "Middelalderkrana Krantor og Andersenbrygga.",
         "Markedshallen Hala Targowa ved Katarinakirken – nyåpnet i 2026 med mathall.",
         "Garnbutikk for Heidi: Motkomania er åpen lørdag 10–15 (se Strikk)."
+      ],
+      stopp: [
+        "Fontanna Neptuna, Długi Targ, Gdańsk",
+        "Dwór Artusa, Gdańsk",
+        "Żuraw, Gdańsk",
+        "ulica Mariacka, Gdańsk",
+        "Bazylika Mariacka, Gdańsk",
+        "Hala Targowa, Gdańsk",
+        "Motkomania Młyńska 9/11 Gdańsk"
       ]
     },
     {
       dato: "Søndag 14. mars",
       tittel: "Historie og sjø",
       punkter: [
-        "Andre verdenskrigsmuseet – stort og sterkt. Søndag åpent 10–18 (stengt mandager).",
+        "Andre verdenskrigsmuseet. Søndag åpent 10–18 (stengt mandager).",
         "Alternativ: Det europeiske solidaritetssenteret og verftsområdet, Westerplatte, eller en halvdag i Sopot med den lange trebrygga (SKM-tog ca. 20 min).",
         "Tidlig middag og tidlig i seng – avreise natt til mandag."
+      ],
+      stopp: ["Muzeum II Wojny Światowej, Gdańsk", "Europejskie Centrum Solidarności, Gdańsk"],
+      ekstra: [
+        { tekst: "Westerplatte", kart: "Westerplatte, Gdańsk" },
+        { tekst: "Sopot-brygga", kart: "Molo w Sopocie, Sopot" }
       ]
     }
   ],

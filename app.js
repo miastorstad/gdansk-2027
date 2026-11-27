@@ -10,6 +10,14 @@
   function kartlenke(q) {
     return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
   }
+  // Gårute i Google Maps: fra hotellet, via stoppene (maks 9 mellomstopp), til siste stopp.
+  function rutelenke(stopp) {
+    var mellom = stopp.slice(0, -1).map(encodeURIComponent).join("%7C");
+    return "https://www.google.com/maps/dir/?api=1&travelmode=walking" +
+      "&origin=" + encodeURIComponent(D.hotell.kart) +
+      "&destination=" + encodeURIComponent(stopp[stopp.length - 1]) +
+      (mellom ? "&waypoints=" + mellom : "");
+  }
   function lenkeKnapp(q, tekst, liten) {
     return '<a class="knapp' + (liten ? " liten" : "") + '" href="' + kartlenke(q) +
       '" target="_blank" rel="noopener">📍 ' + (tekst || "Åpne i Google Maps") + "</a>";
@@ -60,7 +68,12 @@
       '<p class="ingress">Bare forslag – gjør akkurat det dere har lyst til.</p>';
     D.dager.forEach(function (d) {
       html += '<div class="dag"><p class="meta">' + d.dato.toUpperCase() + "</p><h3>" + d.tittel +
-        "</h3><ul>" + d.punkter.map(function (p) { return "<li>" + p + "</li>"; }).join("") + "</ul></div>";
+        "</h3><ul>" + d.punkter.map(function (p) { return "<li>" + p + "</li>"; }).join("") + "</ul>" +
+        (d.stopp || d.ekstra ? '<div class="bildeknapper">' +
+          (d.stopp ? '<a class="knapp liten" href="' + rutelenke(d.stopp) + '" target="_blank" rel="noopener">🗺️ Dagens rute i Google Maps</a>' : "") +
+          (d.ekstra || []).map(function (e) { return lenkeKnapp(e.kart, e.tekst, true); }).join("") +
+          "</div>" : "") +
+        "</div>";
     });
     $("#dager").innerHTML = html;
   })();
